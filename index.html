@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TebeagStoryboard - Studio Otomatisasi Storyboard & Script AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-obsidian: #050505;
+            --surface-dark: #0F1420;
+            --surface-elevated: #161D2F;
+            --cyber-cyan: #00F2FE;
+            --electric-blue: #4FACFE;
+            --neon-purple: #8B5CF6;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --border-subtle: #1E293B;
+            --gradient-accent: linear-gradient(135deg, #00F2FE 0%, #4FACFE 50%, #8B5CF6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Ambient Glow Header */
+        .glow-bg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 70%);
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #050505;
+            font-size: 20px;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+
+        .brand-text h1 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge-android {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--cyber-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 10;
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface-dark);
+            border: 1px solid var(--border-subtle);
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .hero-pill span.dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10B981;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+        }
+
+        .hero h2 span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto 36px;
+        }
+
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: #050505;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 24px rgba(0, 242, 254, 0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 242, 254, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--surface-dark);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            font-weight: 600;
+            font-size: 15px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-elevated);
+            border-color: var(--cyber-cyan);
+        }
+
+        /* Demo Notice Card */
+        .notice-card {
+            background: linear-gradient(180deg, rgba(15, 20, 32, 0.9) 0%, rgba(22, 29, 47, 0.9) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 40px auto 60px;
+            max-width: 800px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .notice-card h3 {
+            font-size: 17px;
+            color: var(--cyber-cyan);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .code-box {
+            background: #000;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #38BDF8;
+            overflow-x: auto;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* Grid Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 40px 0 80px;
+        }
+
+        .feature-card {
+            background: var(--surface-dark);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 28px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 242, 254, 0.4);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--cyber-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 32px 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-bg"></div>
+
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="brand-logo">T</div>
+                <div class="brand-text">
+                    <h1>AI TebeagStoryboard</h1>
+                </div>
+            </div>
+            <div class="badge-android">Android Native App</div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-pill">
+                <span class="dot"></span>
+                Studio Storyboard & Naskah Video YouTube Berbasis AI
+            </div>
+            <h2>Otomatisasi Storyboard Video <span>Dari Niche Sampai Render Prompt</span></h2>
+            <p>Aplikasi Android native profesional untuk kreator YouTube, tim video, dan sutradara naskah dengan generator viral title, scene prompt Midjourney/Flux, dan manajemen karakter konsisten.</p>
+
+            <div class="hero-cta">
+                <a href="https://ais-pre-ujyq26vx3mnvmxgbdrfnj7-857237735953.asia-southeast1.run.app" target="_blank" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    Buka Live Demo Emulator di Browser
+                </a>
+                <a href="https://github.com/t-bek303/Demo-Ai-TebeagStoryboard" target="_blank" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    Lihat Source Code
+                </a>
+            </div>
+        </section>
+
+        <!-- Informasi Mengapa GitHub Pages 404 -->
+        <div class="notice-card">
+            <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                Catatan Mengenai Deployment GitHub Pages
+            </h3>
+            <p>Proyek <strong>AI TebeagStoryboard</strong> adalah aplikasi <strong>Android Native (Kotlin & Jetpack Compose)</strong>, sehingga tidak dapat dijalankan secara langsung sebagai HTML/JS statis pada GitHub Pages tanpa file <code>index.html</code>.</p>
+            <p>Dengan adanya halaman ini di repository Anda, GitHub Pages akan menampilkan portal showcase ini. Anda dapat mencoba aplikasi secara langsung melalui streaming Android emulator di atas!</p>
+            <div class="code-box">
+                Live Preview: https://ais-pre-ujyq26vx3mnvmxgbdrfnj7-857237735953.asia-southeast1.run.app
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h4>Viral Title & CTR Analyzer</h4>
+                <p>Generator 6 variasi judul dengan metrik Hook, Clarity, Curiosity, Emotion, dan Skor Total Retensi untuk memaksimalkan rasio klik tayang YouTube.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h4>Full Script Studio</h4>
+                <p>Penyusunan naskah berstruktur baku (Hook, Opening, Problem, Cantillon/Story, Evidence, Call To Action) dengan kalkulasi durasi baca dan target WPM.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h4>Scene Breakdown & Storyboard</h4>
+                <p>Pemecahan naskah menjadi adegan detail lengkap dengan arahan kamera (Angle, Movement, Mood, Lighting, Timecode) dan prompt Midjourney/Flux.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👤</div>
+                <h4>Character Consistency Studio</h4>
+                <p>Manajemen karakter berkelanjutan dengan kode unik (CHAR-001) untuk konsistensi visual di seluruh frame video AI.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h4>YouTube SEO & Tag Strategy</h4>
+                <p>Deskripsi video otomatis dengan timestamp terstruktur, 20 hashtag relevan, dan panduan visual prompt thumbnail high-CTR.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h4>Master Formatter & Offline Database</h4>
+                <p>Penyimpanan lokal dengan Room SQLite dan ekspor lengkap ke format Markdown, CSV Tabel Adegan, JSON Prompt, dan Naskah Siap Rekam.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 AI TebeagStoryboard. Built with Kotlin, Jetpack Compose & Material 3.</p>
+        </footer>
+    </div>
+</body>
+</html>
