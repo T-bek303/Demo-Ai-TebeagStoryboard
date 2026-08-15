@@ -5,6 +5,9 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build Android APK
@@ -18,13 +21,18 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew || true
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: Build Debug APK with Gradle
-        run: gradle assembleDebug --no-daemon --stacktrace
+      - name: Restore Debug Keystore
+        run: |
+          if [ -f debug.keystore.base64 ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
+          fi
+
+      - name: Build Debug APK
+        run: gradle :app:assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK to Artifacts
         uses: actions/upload-artifact@v4
@@ -32,13 +40,13 @@ jobs:
           name: AI-TebeagStoryboard-APK
           path: app/build/outputs/apk/debug/*.apk
 
-      - name: Create Release
+      - name: Create GitHub Release
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.0
           name: "AI TebeagStoryboard v1.0.0 (APK)"
-          body: "Download and install the APK file directly on your Android phone."
+          body: "Silakan unduh file APK di bawah ini dan pasang langsung di HP Android Anda."
           files: app/build/outputs/apk/debug/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
